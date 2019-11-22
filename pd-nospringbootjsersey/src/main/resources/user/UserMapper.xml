@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.patinousward.demo.nospringbootjsersey.mapper">
+    <cache readOnly="true" eviction="FIFO" flushInterval="60000" />
+    <resultMap id="BaseResultMap" type="com.webank.bdp.domain.User">
+        <result column="id" property="id" />
+        <result column="name" property="name" />
+        <result column="age" property="age" />
+        <result column="password" property="password" />
+    </resultMap>
+    <sql id="Base_Column_List">
+        id,name,age,password
+    </sql>
+    <select id="seletctUserById" resultMap="BaseResultMap" parameterType="Object" useCache="true">
+        select
+        <include refid="Base_Column_List" />
+        from user where id = #{id}
+    </select>
+    <select id="seletctAll" resultMap="BaseResultMap"  useCache="true">
+        select
+        <include refid="Base_Column_List" />
+        from user
+    </select>
+    <update id="updaAgeById">
+        UPDATE user set age =#{age} where id =#{id}
+    </update>
+</mapper>
