@@ -7,5 +7,6 @@ object Test extends App {
   println(new A)
   val b = new B
   println(b)
+  //maven中scala版本最好和自己电脑安装的一致
   //@clean val aaa = "hello"
 }

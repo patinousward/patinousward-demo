@@ -17,12 +17,12 @@
         <dependency>
             <groupId>org.scala-lang</groupId>
             <artifactId>scala-library</artifactId>
-            <version>2.12.7</version>
+            <version>2.11.8</version>
         </dependency>
         <dependency>
             <groupId>org.scala-lang</groupId>
             <artifactId>scala-reflect</artifactId>
-            <version>2.12.7</version>
+            <version>2.11.8</version>
         </dependency>
     </dependencies>
 
@@ -36,7 +36,7 @@
                     <compilerPlugins>
                         <compilerPlugin>
                             <groupId>org.scalamacros</groupId>
-                            <artifactId>paradise_2.12.7</artifactId>
+                            <artifactId>paradise_2.11.8</artifactId>
                             <version>2.1.0</version>
                         </compilerPlugin>
                     </compilerPlugins>

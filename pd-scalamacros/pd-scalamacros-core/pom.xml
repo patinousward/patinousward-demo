@@ -8,6 +8,7 @@
         <version>1.0-SNAPSHOT</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
+    <packaging>jar</packaging>
 
     <artifactId>pd-scalamacros-core</artifactId>
 
@@ -29,14 +30,14 @@
                     <compilerPlugins>
                         <compilerPlugin>
                             <groupId>org.scalamacros</groupId>
-                            <artifactId>paradise_2.12.7</artifactId>
+                            <artifactId>paradise_2.11.8</artifactId>
                             <version>2.1.0</version>
                         </compilerPlugin>
                     </compilerPlugins>
                     <launchers>
                         <launcher>
                             <id>Test</id>
-                            <mainClass>Test</mainClass>
+                            <mainClass>com.patinousward.demo.scalamacros.Test</mainClass>
                         </launcher>
                     </launchers>
                 </configuration>
