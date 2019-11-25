@@ -3,6 +3,7 @@ package com.patinousward.demo.scalafunction
 import org.junit.Test
 
 import scala.annotation.tailrec
+import scala.runtime.Nothing$
 
 /**
   * Created by Administrator on 2019/11/14.
@@ -117,6 +118,16 @@ class FunctionTest01 {
     def compose[A,B,C](f:B=>C,g:A=>B):A =>C ={
       a:A =>f(g(a))
     }
+  }
+
+  @Test//练习3.1
+  def test11(): Unit ={
+
+    //sealed 不能在类定义的文件之外定义任何新的子类
+    //Nothing是所有类的子类，是一个类。Nothing没有对象，但是可以用来定义类型。
+    //case object Nil extends List[Nothin]  又因为nothing是所有类的子类，所以Nil extends List[所有类型]
+    //val ex1:List[Double] = Nil  因为Nil是Nothing的子类，Nothing 是Double的子类，而且有协变存在，父类引用指向子类的实体 是ok的
+
   }
 
 
