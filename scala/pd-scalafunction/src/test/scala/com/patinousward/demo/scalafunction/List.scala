@@ -111,12 +111,13 @@ object List {
   def revert[A](as:List[A]):List[A] ={
     foldLeft(as,Nil:List[A])((b,a)=>Cons(a,b))
   }
-  //练习3.13
+  //练习3.13   问题应该是通过foldlef 来实现foldright 避免递归压栈
+  // 方法之一，先reverse，再foldleft
+  //
   def foldRight2[A,B](as:List[A],z:B)(f:(A,B)=>B):B={
-    as match {
-      case Nil =>z
-      case Cons(h,t) =>f(h,foldRight2(t,z)(f))
-    }
+    //foldRight2 方法中的A，B代表A，B类型
+    //传入foldLeft时，foldLeft的A,B 代表A，(b:B) => b 类型
+    foldLeft(as, (b:B) => b)((g,a) => b => g(f(a,b)))(z)
   }
 
 }
