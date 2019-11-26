@@ -51,7 +51,7 @@ class FunctionTest01 {
     val reduce2: A = a.reduce(_ combine _)//返回得出的是数组中的类型
     print(reduce)//A(93)
   }
-  @Test//练习2.1factorial 阶乘 斐波那契数
+  @Test//练习2.1factorial 阶乘 斐波那契数(answer)
   def test05():Unit={
     def fib(n: Int): Int = {
       @annotation.tailrec
@@ -120,7 +120,7 @@ class FunctionTest01 {
     }
   }
 
-  @Test//练习3.1
+  @Test//练习3.1 过于简单，忽略
   def test11(): Unit ={
 
     //sealed 不能在类定义的文件之外定义任何新的子类
@@ -129,7 +129,5 @@ class FunctionTest01 {
     //val ex1:List[Double] = Nil  因为Nil是Nothing的子类，Nothing 是Double的子类，而且有协变存在，父类引用指向子类的实体 是ok的
 
   }
-
-
 
 }
