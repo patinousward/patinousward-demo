@@ -101,7 +101,23 @@ class ListTest{
     //一元匿名函数 x => method(x)  === method
     //二元匿名函数 (x,y) => x.+(y)  ==== (x,y)=> x + y  === _ + _
     //(x,y) =>x.方法名(y) ==== (x,y) => x 方法名 y ==== _ 方法名 _
+    def method1(a:String,b:Int){}
+    def func1(f:(String,Int)=>Unit){}
+    func1(method1)
+    func1((a,b)=>method1(a,b))
 
+
+    case class A()
+    def metho2(a:String,b:Int):A={null}
+
+  }
+
+  //练习3.8
+  @Test
+  def test03(): Unit ={
+    val a = List(1,2,3,4,5)
+    List.foldRight(a,Nil:List[Int])((x,y)=>Cons(x,y))//这里Nil需要用父类List[Int]装，否则后面匿名函数会报错
+    //(x,y)=>Cons(x,y)  Cons(_,_)
   }
 
 }
