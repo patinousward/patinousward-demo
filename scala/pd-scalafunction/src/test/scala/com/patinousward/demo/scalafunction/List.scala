@@ -2,6 +2,8 @@ package scala.com.patinousward.demo.scalafunction
 
 import org.junit.Test
 
+import scala.annotation.tailrec
+
 
 sealed trait List[+A]
 case object Nil extends List[Nothing]
@@ -45,7 +47,7 @@ object List {
       case _ => l
     }
   }
-
+  //练习3.5 update版
   def dropWhile2[A](l:List[A],f:A =>Boolean):List[A]={
     l match {
       case Cons(h,t) =>if(f(h)) dropWhile2(t,f) else Cons(h,dropWhile2(t,f))
@@ -81,6 +83,42 @@ object List {
 
   def sum2(ns:List[Int]) = foldRight(ns,0)(_ + _)
 
+  //练习3.9
+  def length[A](as:List[A]):Int ={
+    foldRight(as,0)((x,y)=>y +1)
+  }
+
+  @tailrec//练习3.10
+  def foldLeft[A,B](as:List[A],z:B)(f:(B,A)=>B):B ={
+    as match {
+      case Nil =>z
+      case Cons(h,t)=>foldLeft(t,f(z,h))(f)
+    }
+  }
+  //练习3.11-1
+  def sum3(as:List[Int]):Int={
+    foldLeft(as,0)(_ + _)
+  }
+  //练习3.11-2
+  def product3(as:List[Double]):Double ={
+    foldLeft(as,1.0)(_ * _)
+  }
+  //练习3.11-3
+  def length3[A](as:List[A]):Int ={
+    foldLeft(as,0)((x,y)=>x + 1)
+  }
+  //练习3.12
+  def revert[A](as:List[A]):List[A] ={
+    foldLeft(as,Nil:List[A])((b,a)=>Cons(a,b))
+  }
+  //练习3.13
+  def foldRight2[A,B](as:List[A],z:B)(f:(A,B)=>B):B={
+    as match {
+      case Nil =>z
+      case Cons(h,t) =>f(h,foldRight2(t,z)(f))
+    }
+  }
+
 }
 
 class ListTest{
@@ -101,15 +139,6 @@ class ListTest{
     //一元匿名函数 x => method(x)  === method
     //二元匿名函数 (x,y) => x.+(y)  ==== (x,y)=> x + y  === _ + _
     //(x,y) =>x.方法名(y) ==== (x,y) => x 方法名 y ==== _ 方法名 _
-    def method1(a:String,b:Int){}
-    def func1(f:(String,Int)=>Unit){}
-    func1(method1)
-    func1((a,b)=>method1(a,b))
-
-
-    case class A()
-    def metho2(a:String,b:Int):A={null}
-
   }
 
   //练习3.8
@@ -117,7 +146,25 @@ class ListTest{
   def test03(): Unit ={
     val a = List(1,2,3,4,5)
     List.foldRight(a,Nil:List[Int])((x,y)=>Cons(x,y))//这里Nil需要用父类List[Int]装，否则后面匿名函数会报错
-    //(x,y)=>Cons(x,y)  Cons(_,_)
+    //(x,y)=>Cons(x,y)  ===  Cons(_,_)
+    print((x:Int,y:List[Int])=>Cons(x,y))//function2  变量在=> 后面只出现一次 使用_代替
+  }
+  @Test//练习3.9
+  def test04():Unit ={
+    val a = List(1,4,6,7)
+    print(List.length(a))
+  }
+
+  @Test//练习3.11
+  def test05(): Unit ={
+    val a = List(1,4,6,7)
+    print(List.sum3(a))
+  }
+  @Test//练习3.12
+  def test06(): Unit ={
+    val a = List(1,4,6,7)
+    print(List.revert(a))
+    //小结：fold A,B 的泛型不一样，也可以一样，一样的话代表list中2个元素的操作
   }
 
 }
