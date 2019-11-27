@@ -99,7 +99,7 @@ class FunctionTest01 {
 
   @Test//练习2.3 柯里化
   def test08(): Unit ={
-    def curry[A,B,C](f:(A,B)=>C):A =>(B =>C)={
+    def curry[A,B,C](f:(A,B)=>C):A =>(B =>C)={ //A =>B =>C 没有括号也行，而且应该更好
       a:A => b:B =>f(a,b)
     }
     // a代表返回函数将来调用时的入参数，b代表返回函数的返回函数将来调用时的入参,但是这个b参数只能在a的返回参数中调用

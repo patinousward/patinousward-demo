@@ -73,7 +73,7 @@ object List {
       case Cons(h,t) => Cons(h,init(t))
     }
   }
-  //
+  //(f:(A,B)=>B)  这个传的匿名函数其实是方法体内自己使用的，所以这个方法中所能使用的变量只有f，as，z
   def foldRight[A,B](as:List[A],z:B)(f:(A,B)=>B):B={
     as match {
       case Nil =>z
@@ -113,10 +113,13 @@ object List {
   }
   //练习3.13   问题应该是通过foldlef 来实现foldright 避免递归压栈
   // 方法之一，先reverse，再foldleft
-  //
+  //方法二：如下
   def foldRight2[A,B](as:List[A],z:B)(f:(A,B)=>B):B={
     //foldRight2 方法中的A，B代表A，B类型
-    //传入foldLeft时，foldLeft的A,B 代表A，(b:B) => b 类型
+    //传入foldLeft时，foldLeft的A,B 代表A，(b:B) => b 类型,所以foldLef的(f:(B,A)=>B)相当于f:(B=>B,A)=>B=>B
+    //  foldLef 得出的是(b:B) => b  因此调用只要加上z，就可以返回B类型（对foldRight2来说）了
+    //b 代表以后传入且调用函数的变量，这里这个变量调用的时候的值是z
+    //使用g代表函数类型为B=>B的对象 ,a代表未来传入的A,故f:(B=>B,A)=>B=>B  变为f:(g,a)=>b=>g(f(a,b))
     foldLeft(as, (b:B) => b)((g,a) => b => g(f(a,b)))(z)
   }
 
