@@ -124,10 +124,20 @@ object List {
     //foldLeft(as, (b:B) => b)((g,a) => j => g(f(a,j)))(z)
     //foldLeft(as, (b:B) => b)((g,a) => b => g(f(a,b)))(z) //中间的b只是省略了类型，并非和前面的b相同
     val ss = (b:B) => {
-      print(b) // b为18，而且只打印了一次，所以没有递归
+      println("----ss---")
+      println(b) // b为18，而且只打印了一次，所以没有递归
       b
     }
-    foldLeft(as, ss)((g,a) => b => g(f(a,b)))(z)
+    foldLeft(as, ss)((g,a) => {
+      println("===")
+      b => {
+        println("---a,b,f(a,b)")
+        println(a)
+        println(b)
+        println(f(a,b))
+        g(f(a,b))
+      }
+    })(z)
   }
 
   def foldLeftViaFoldRight[A,B](l: List[A], z: B)(f: (B,A) => B): B =
@@ -201,6 +211,30 @@ class ListTest{
     val a = List(1,4,6,7)
     print(List.foldRight2(a,0)(_ + _))
     //小结：fold A,B 的泛型不一样，也可以一样，一样的话代表list中2个元素的操作
+    //调用顺序
+    /*===
+    ===
+    ===
+    ===
+    ---a,b,f(a,b)
+    7
+    0
+    7
+    ---a,b,f(a,b)
+    6
+    7
+    13
+    ---a,b,f(a,b)
+    4
+    13
+    17
+    ---a,b,f(a,b)
+    1
+    17
+    18
+    ----ss---
+    18
+    18*/
   }
 
   @Test//练习3.16
