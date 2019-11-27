@@ -120,7 +120,17 @@ object List {
     //  foldLef 得出的是(b:B) => b  因此调用只要加上z，就可以返回B类型（对foldRight2来说）了
     //b 代表以后传入且调用函数的变量，这里这个变量调用的时候的值是z
     //使用g代表函数类型为B=>B的对象 ,a代表未来传入的A,故f:(B=>B,A)=>B=>B  变为f:(g,a)=>b=>g(f(a,b))
-    foldLeft(as, (b:B) => b)((g,a) => b => g(f(a,b)))(z)
+    //foldLeft(as, (b:B) => b)((g:B=>B,a:A) => ({j:B=>g(f(a,j))})) (z)
+    //foldLeft(as, (b:B) => b)((g,a) => j => g(f(a,j)))(z)
+    foldLeft(as, (b:B) => b)((g,a) => b => g(f(a,b)))(z) //中间的b只是省略了类型，并非和前面的b相同
+  }
+
+  def foldLeftViaFoldRight[A,B](l: List[A], z: B)(f: (B,A) => B): B =
+    foldRight(l, (b:B) => b)((a,g) => b => g(f(b,a)))(z)
+
+  //练习3.14 answer  但是这里是往后面append的，往前append需要使用foldLeft
+  def append[A](l:List[A],r:List[A]):List[A]={
+    foldRight(l, r)((x:A,y:List[A])=>Cons(x,y))
   }
 
 }
@@ -168,6 +178,13 @@ class ListTest{
   def test06(): Unit ={
     val a = List(1,4,6,7)
     print(List.revert(a))
+    //小结：fold A,B 的泛型不一样，也可以一样，一样的话代表list中2个元素的操作
+  }
+
+  @Test//练习3.13
+  def test07(): Unit ={
+    val a = List(1,4,6,7)
+    print(List.foldRight2(a,0)(_ + _))
     //小结：fold A,B 的泛型不一样，也可以一样，一样的话代表list中2个元素的操作
   }
 
