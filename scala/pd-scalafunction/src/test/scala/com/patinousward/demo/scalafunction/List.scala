@@ -132,6 +132,10 @@ object List {
   def append[A](l:List[A],r:List[A]):List[A]={
     foldRight(l, r)((x:A,y:List[A])=>Cons(x,y))
   }
+  //练习3.15 answer
+  def allToOne[A](l:List[List[A]]):List[A]={
+    foldRight(l, Nil:List[A])(append)
+  }
 
 }
 
