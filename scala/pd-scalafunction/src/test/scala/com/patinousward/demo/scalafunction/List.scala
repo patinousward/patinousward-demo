@@ -136,6 +136,12 @@ object List {
   def allToOne[A](l:List[List[A]]):List[A]={
     foldRight(l, Nil:List[A])(append)//类似2层递归了，第一层递归外面的list，第二层递归里面的list，得到每个元素进行append
   }
+  //练习3.16
+  def addOne(l:List[Int]):List[Int] ={
+    foldRight(l, Nil:List[Int])((h,t) => Cons(h + 1,t))//addOne后不应该加泛型
+  }
+
+
 
 }
 
@@ -189,6 +195,13 @@ class ListTest{
   def test07(): Unit ={
     val a = List(1,4,6,7)
     print(List.foldRight2(a,0)(_ + _))
+    //小结：fold A,B 的泛型不一样，也可以一样，一样的话代表list中2个元素的操作
+  }
+
+  @Test//练习3.16
+  def test08(): Unit ={
+    val a = List(1,4,6,7)
+    print(List.addOne(a))
     //小结：fold A,B 的泛型不一样，也可以一样，一样的话代表list中2个元素的操作
   }
 
