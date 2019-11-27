@@ -122,7 +122,12 @@ object List {
     //使用g代表函数类型为B=>B的对象 ,a代表未来传入的A,故f:(B=>B,A)=>B=>B  变为f:(g,a)=>b=>g(f(a,b))
     //foldLeft(as, (b:B) => b)((g:B=>B,a:A) => ({j:B=>g(f(a,j))})) (z)
     //foldLeft(as, (b:B) => b)((g,a) => j => g(f(a,j)))(z)
-    foldLeft(as, (b:B) => b)((g,a) => b => g(f(a,b)))(z) //中间的b只是省略了类型，并非和前面的b相同
+    //foldLeft(as, (b:B) => b)((g,a) => b => g(f(a,b)))(z) //中间的b只是省略了类型，并非和前面的b相同
+    val ss = (b:B) => {
+      print(b) // b为18，而且只打印了一次，所以没有递归
+      b
+    }
+    foldLeft(as, ss)((g,a) => b => g(f(a,b)))(z)
   }
 
   def foldLeftViaFoldRight[A,B](l: List[A], z: B)(f: (B,A) => B): B =
