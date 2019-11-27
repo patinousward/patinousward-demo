@@ -134,7 +134,7 @@ object List {
   }
   //练习3.15 answer
   def allToOne[A](l:List[List[A]]):List[A]={
-    foldRight(l, Nil:List[A])(append)
+    foldRight(l, Nil:List[A])(append)//类似2层递归了，第一层递归外面的list，第二层递归里面的list，得到每个元素进行append
   }
 
 }
