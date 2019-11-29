@@ -155,7 +155,30 @@ object List {
   def addOne(l:List[Int]):List[Int] ={
     foldRight(l, Nil:List[Int])((h,t) => Cons(h + 1,t))//addOne后不应该加泛型
   }
+  //练习3.17
+  def dobuleToString(l:List[Double]):List[String] ={
+    foldRight(l,Nil:List[String])((a,b)=>Cons(a.toString,b))
+  }
+  //练习3.18
+  def map[A,B](as:List[A])(f:A =>B):List[B] ={
+    foldLeft(as,Nil:List[B])((b,a)=>Cons(f(a),b))
+  }
+  //练习3.19
+  def filter[A](as:List[A])(f:A=>Boolean):List[A]={
+/*    as match {
+      case Nil =>as
+      case Cons(h,t)=>if(f(h)) Cons(h,filter(t)(f))  else filter(t)(f)
+    }*/
+    foldRight(as,Nil:List[A])((a,b)=>if(f(a)) Cons(a,b) else b)
+  }
+  //练习3.20
+  def flatMap[A,B](as:List[A])(f:A=>List[B]):List[B]={
+    foldRight(as,Nil:List[B])((a,b)=> foldRight(f(a),Nil:List[B])(Cons(_,_)) )  //答案是使用Concat，原理都一样
+  }
+  //练习3.21
+  def filter2[A](as:List[A])(f:A=>Boolean):List[A]={
 
+  }
 
 
 }
