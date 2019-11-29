@@ -147,7 +147,7 @@ object List {
   def append[A](l:List[A],r:List[A]):List[A]={
     foldRight(l, r)((x:A,y:List[A])=>Cons(x,y))
   }
-  //练习3.15 answer
+  //练习3.15 answer  concat
   def allToOne[A](l:List[List[A]]):List[A]={
     foldRight(l, Nil:List[A])(append)//类似2层递归了，第一层递归外面的list，第二层递归里面的list，得到每个元素进行append
   }
@@ -175,12 +175,28 @@ object List {
   def flatMap[A,B](as:List[A])(f:A=>List[B]):List[B]={
     foldRight(as,Nil:List[B])((a,b)=> foldRight(f(a),Nil:List[B])(Cons(_,_)) )  //答案是使用Concat，原理都一样
   }
-  //练习3.21
-  def filter2[A](as:List[A])(f:A=>Boolean):List[A]={
-
+  //练习3.21 answer  里面会产生很多的Nil吗？其实不会，因为这个调用主要是flatMap ->Map->Concat->append  append中，如果遇到
+  //Nil就过滤掉返回
+  def filter2[A](l:List[A])(f:A=>Boolean):List[A]={
+    flatMap(l)(a => if (f(a)) List(a) else Nil)
   }
 
-
+  //练习3.22 answer
+  def listAdd(a:List[Int],b:List[Int]):List[Int]= {
+    (a, b) match {
+      case (Nil, _) => Nil
+      case (_, Nil) => Nil
+      case (Cons(h1, t1), Cons(h2, t2)) => Cons(h1 + h2, listAdd(t1, t2))
+    }
+  }
+  //练习3.23
+  def zipWith[A,B,C](a:List[A],b:List[B])(f:(A,B)=>C):List[C] ={
+    (a, b) match {
+      case (Nil, _) => Nil
+      case (_, Nil) => Nil
+      case (Cons(h1, t1), Cons(h2, t2)) => Cons(f(h1,h2), zipWith(t1, t2)(f))
+    }
+  }
 }
 
 class ListTest{
