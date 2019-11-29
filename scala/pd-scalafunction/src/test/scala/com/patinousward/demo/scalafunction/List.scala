@@ -197,6 +197,20 @@ object List {
       case (Cons(h1, t1), Cons(h2, t2)) => Cons(f(h1,h2), zipWith(t1, t2)(f))
     }
   }
+  //练习3.24 answer  判断sub 是sup中连续的集合
+  @annotation.tailrec
+  def hasSubsequence[A](sup: List[A], sub: List[A]): Boolean = sup match {
+    case Nil => sub == Nil
+    case _ if startsWith(sup, sub) => true
+    case Cons(h,t) => hasSubsequence(t, sub)
+  }
+
+  @annotation.tailrec
+  def startsWith[A](l: List[A], prefix: List[A]): Boolean = (l,prefix) match {
+    case (_,Nil) => true
+    case (Cons(h,t),Cons(h2,t2)) if h == h2 => startsWith(t, t2)
+    case _ => false
+  }
 }
 
 class ListTest{
@@ -281,6 +295,19 @@ class ListTest{
     val a = List(1,4,6,7)
     print(List.addOne(a))
     //小结：fold A,B 的泛型不一样，也可以一样，一样的话代表list中2个元素的操作
+  }
+  @Test
+  def test09(): Unit ={
+    print(List.hasSubsequence(List(1,2,3),List(1,3)))
+  }
+
+  @Test
+  def test10(): Unit ={
+    val a = List(1,2,3)
+    a match {
+      case _ =>print(false)
+      case Cons(h,t) =>print(true)
+    }
   }
 
 }
