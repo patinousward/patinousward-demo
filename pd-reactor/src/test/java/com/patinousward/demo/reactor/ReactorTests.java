@@ -45,4 +45,11 @@ public class ReactorTests {
         Flux.interval(Duration.ofSeconds(1))
                 .subscribe(System.out::println);
     }
+
+    @Test
+    public void testDoOnNext() {
+            //doOnNext  在next方法前调用
+        Flux.interval(Duration.ofSeconds(1)).doOnNext(x-> System.out.println("haha"))
+                .subscribe(System.out::println);
+    }
 }
