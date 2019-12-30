@@ -44,11 +44,12 @@ public class ReactorTests {
     public void testInterval() {
         Flux.interval(Duration.ofSeconds(1))
                 .subscribe(System.out::println);
+        System.out.println(555);//555会先打印出来，说明有异步
     }
 
     @Test
     public void testDoOnNext() {
-            //doOnNext  在next方法前调用
+            //doOnNext  在next方法前调用，每次next方法强
         Flux.interval(Duration.ofSeconds(1)).doOnNext(x-> System.out.println("haha"))
                 .subscribe(System.out::println);
     }
