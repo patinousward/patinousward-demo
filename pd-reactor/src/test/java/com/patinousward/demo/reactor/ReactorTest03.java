@@ -1,11 +1,19 @@
 package com.patinousward.demo.reactor;
 
 import org.junit.Test;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import reactor.core.publisher.Flux;
+import reactor.core.publisher.FluxSink;
 import reactor.core.scheduler.Schedulers;
+
+import java.util.concurrent.ThreadLocalRandom;
+import java.util.concurrent.TimeUnit;
 
 
 public class ReactorTest03 {
+
+    private final Logger LOGGER = LoggerFactory.getLogger(this.getClass());
 
     @Test
     public void test01(){
@@ -55,6 +63,32 @@ public class ReactorTest03 {
     public void test04() throws InterruptedException {
         Flux.range(0,10).publishOn(Schedulers.parallel()).subscribe(Utils::println);
         Thread.currentThread().join();
+    }
+
+    @Test
+    public void test05() throws InterruptedException {
+        final Flux<Integer> flux = Flux.<Integer> create(fluxSink -> {
+            //NOTE sink:class reactor.core.publisher.FluxCreate$SerializedSink
+            LOGGER.info("sink:{}",fluxSink.getClass());
+            while (true) {
+                LOGGER.info("sink next");
+                fluxSink.next(ThreadLocalRandom.current().nextInt(10));
+            }
+        }, FluxSink.OverflowStrategy.BUFFER);
+
+        //NOTE flux:class reactor.core.publisher.FluxCreate,prefetch:-1
+        LOGGER.info("flux:{},prefetch:{}",flux.getClass(),flux.getPrefetch());
+
+        flux.subscribe(e -> {
+            LOGGER.info("subscribe:{}",e);
+            try {
+                TimeUnit.SECONDS.sleep(10);
+            } catch (InterruptedException e1) {
+                e1.printStackTrace();
+            }
+        });
+
+        TimeUnit.MINUTES.sleep(20);
     }
 
 }
