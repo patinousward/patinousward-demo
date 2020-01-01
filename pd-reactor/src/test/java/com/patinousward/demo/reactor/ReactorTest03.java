@@ -91,4 +91,43 @@ public class ReactorTest03 {
         TimeUnit.MINUTES.sleep(20);
     }
 
+
+    @Test
+    public void test06() throws InterruptedException {
+        FluxSinkListener fluxSinkListener = new FluxSinkListener<String>(){
+            private FluxSink<String> fluxSink = null;
+            @Override
+            public void setFluxSink(FluxSink<String> fluxSink) {
+                this.fluxSink = fluxSink;
+            }
+            @Override
+            public void next(String webSocketMessage) {
+                if(fluxSink != null) fluxSink.next(webSocketMessage);
+
+            }
+            @Override
+            public void complete() {
+                if(fluxSink != null) fluxSink.complete();
+            }
+        };
+
+        Flux<String> receives = Flux.create(sink -> {
+            fluxSinkListener.setFluxSink(sink);
+        });
+        //先订阅,否则listener中的fluxSink为null
+        receives.subscribe(Utils::println);
+        while (true){
+            fluxSinkListener.next("haha");
+            Thread.sleep(1000);
+        }
+
+    }
+
+}
+
+
+interface FluxSinkListener<T> {
+    void setFluxSink(FluxSink<T> fluxSink);
+    void next(T t);
+    void complete();
 }
