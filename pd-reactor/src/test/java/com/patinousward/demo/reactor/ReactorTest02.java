@@ -9,7 +9,7 @@ import reactor.core.publisher.Flux;
 
 import java.time.Duration;
 
-public class ReactorSourceReading {
+public class ReactorTest02 {
 
     private final Logger log = LoggerFactory.getLogger(this.getClass());
 

@@ -10,7 +10,7 @@ import java.util.List;
 
 import static java.lang.Thread.sleep;
 
-public class ReactorTests {
+public class ReactorTest01 {
         @After
     public void after() throws InterruptedException {
         sleep(30_000);
