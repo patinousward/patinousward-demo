@@ -1,3 +1,5 @@
+package com.patinousward.demo.test
+
 import java.net.ServerSocket
 import java.util.concurrent.atomic.AtomicInteger
 import java.util.concurrent.{LinkedBlockingQueue, ThreadFactory, ThreadPoolExecutor, TimeUnit}
@@ -58,5 +60,15 @@ class OptionTest {
     //等待Duration的时间,执行完成就马上执行后面的代码,到时间没执行完成就报错
     //这里的时间不包括执行监听器的
     println(System.currentTimeMillis()+ "--3")
+  }
+
+  @Test
+  def test04(): Unit ={
+    val oldClassLoader = Thread.currentThread.getContextClassLoader
+    println(oldClassLoader.getClass)//class sun.misc.Launcher$AppClassLoader
+
+    val classpathUrl = oldClassLoader.getResource("")
+    //获取类路径的根路径
+    println(classpathUrl)//file:/D:/workspace/patinousward-demo/pd-unit/target/test-classes/
   }
 }
