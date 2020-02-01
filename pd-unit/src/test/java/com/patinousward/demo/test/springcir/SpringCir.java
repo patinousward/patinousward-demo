@@ -23,4 +23,36 @@ public class SpringCir {
         System.out.println(realy.getE());//null
     }
 
+    @Test//使用property + ref 进行注入
+    public void test03(){//<property ref = "e"> 需要set方法 set注入并不会有循环依赖的问题
+        //没有set方法，注入的时候会报错
+        ClassPathXmlApplicationContext app= new ClassPathXmlApplicationContext("spring-test03.xml");
+        final Object a = app.getBean("D");
+        D realy = (D)a;
+        System.out.println(realy.getE());//非null
+    }
+
+    @Test//使用autowire byName进行注入
+    //byName的话，D中的属性名需要和bean中name属性一样，或者和id属性一样，不一样的话，还是null
+    //同时还是需要set方法，但是这里没有的话不会报错，只会返回null
+    //没有循环依赖的问题
+    public void test04(){
+        ClassPathXmlApplicationContext app= new ClassPathXmlApplicationContext("spring-test04.xml");
+        final Object a = app.getBean("D");
+        D realy = (D)a;
+        System.out.println(realy.getE());
+    }
+
+
+    @Test//使用autowire byType进行注入
+    //byType的话，不用指定name必须和D中的属性一致，但是如果有2个类型，会报错
+    //同时还是需要set方法，但是这里没有的话不会报错，只会返回null
+    //没有循环依赖的问题
+    public void test05(){
+        ClassPathXmlApplicationContext app= new ClassPathXmlApplicationContext("spring-test05.xml");
+        final Object a = app.getBean("D");
+        D realy = (D)a;
+        System.out.println(realy.getE());
+    }
+
 }
