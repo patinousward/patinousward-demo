@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:p="http://www.springframework.org/schema/p"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/context
+        http://www.springframework.org/schema/context/spring-context.xsd">
+
+    <!--加入命名空间xmlns:context="http://www.springframework.org/schema/context"
+    否则解析context标签报错
+    xsi:schemaLocation 中也需要加入http://www.springframework.org/schema/context
+        http://www.springframework.org/schema/context/spring-context.xsd
+        schemaLocation：需要为偶数，而且 比如context 和context.xsd不能被别的隔开
+    -->
+    <!--https://www.cnblogs.com/woftlcj/p/9988152.html-->
+    <bean id="G" class="com.patinousward.demo.test.springcir.G">
+    </bean>
+
+    <bean id="H" class="com.patinousward.demo.test.springcir.H">
+    </bean>
+
+    <bean id="I" class="com.patinousward.demo.test.springcir.I">
+    </bean>
+
+    <context:component-scan base-package="com.patinousward.demo.test.springcir"></context:component-scan>
+
+    <!--如果配置了<context:component-scan>，
+    那么<context:annotation-config/>标签就可以不用在xml中再配置了，
+    因为前者包含了后者。另外<context:annotation-config/>还提供了两个子标签 <context:include-filter>和 <context:exclude-filter>-->
+
+</beans>

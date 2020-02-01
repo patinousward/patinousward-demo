@@ -55,4 +55,15 @@ public class SpringCir {
         System.out.println(realy.getE());
     }
 
+    @Test//@Autowired方法：https://www.cnblogs.com/leiOOlei/p/3713989.html
+    //有2种用法，一种是不适用compoment  xml种配置bean，然后使用autowire注解
+    //另外一种是直接使用compoment和autowire的注解，这时候xml中不需要配置bean
+    public void test06(){
+        //之类展示的是用法1
+        ClassPathXmlApplicationContext app= new ClassPathXmlApplicationContext("spring-test06.xml");
+        final Object a = app.getBean("G");
+        G realy = (G)a;
+        System.out.println(realy.getH());//不为null
+    }
+
 }
