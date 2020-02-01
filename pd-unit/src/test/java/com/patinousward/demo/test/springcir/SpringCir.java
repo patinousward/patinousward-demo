@@ -59,11 +59,20 @@ public class SpringCir {
     //有2种用法，一种是不适用compoment  xml种配置bean，然后使用autowire注解
     //另外一种是直接使用compoment和autowire的注解，这时候xml中不需要配置bean
     public void test06(){
-        //之类展示的是用法1
+        //之类展示的是用法1 需要开启
         ClassPathXmlApplicationContext app= new ClassPathXmlApplicationContext("spring-test06.xml");
         final Object a = app.getBean("G");
         G realy = (G)a;
         System.out.println(realy.getH());//不为null
+    }
+
+    @Test//这里展示Autowire的第二种用法 不需要在xml中配置bean了
+    public void test07(){
+        //之类展示的是用法1
+        ClassPathXmlApplicationContext app= new ClassPathXmlApplicationContext("spring-test07.xml");
+        final Object a = app.getBean("j");//这里需要小写，因为@Component注册后name默认是类名的小写
+        J realy = (J)a;
+        System.out.println(realy.getK());//不为null
     }
 
 }

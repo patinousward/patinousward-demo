@@ -24,7 +24,7 @@
     <bean id="I" class="com.patinousward.demo.test.springcir.I">
     </bean>
 
-    <context:component-scan base-package="com.patinousward.demo.test.springcir"></context:component-scan>
+    <context:annotation-config /> <!-- 开启config后才能使用@Autowire 但是仍旧需要在xml中配置bean，这时候@Compoment不产生作用-->
 
     <!--如果配置了<context:component-scan>，
     那么<context:annotation-config/>标签就可以不用在xml中再配置了，
