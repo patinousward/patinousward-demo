@@ -74,5 +74,16 @@ public class SpringCir {
         J realy = (J)a;
         System.out.println(realy.getK());//不为null
     }
+    @Test
+    public void test072(){
+        //但是autowire 是按照类型进行注入的
+        ClassPathXmlApplicationContext app= new ClassPathXmlApplicationContext("spring-test07.xml");
+        final Object a = app.getBean("j");//这里需要小写，因为@Component注册后name默认是类名的小写
+        J realy = (J)a;
+        System.out.println(realy.getK().getClass());
+        //这个案例的假设是：ParentK  有2个子类K 和subK ,他们都标有@component ，J中@AutoWire 的属性是ParentK parentK
+        //这时候会报错:expected single matching bean but found 2: k,subK，除非使用@qualifier和@Autowire叠加
+        //但是如果把属性名parentK 修改为k 或者subK 那么就会注入相对应的bean 多个bean没啥问题
+    }
 
 }
