@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:p="http://www.springframework.org/schema/p"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <!--构造器循环依赖-->
+    <bean id="A" class="com.patinousward.demo.test.springcir.A" >
+        <constructor-arg index="0" ref="B"/>
+    </bean>
+
+    <bean id="B" class="com.patinousward.demo.test.springcir.B" >
+        <constructor-arg index="0" ref="C"/>
+    </bean>
+
+    <bean id="C" class="com.patinousward.demo.test.springcir.C" >
+        <constructor-arg index="0" ref="A"/>
+    </bean>
+
+</beans>
