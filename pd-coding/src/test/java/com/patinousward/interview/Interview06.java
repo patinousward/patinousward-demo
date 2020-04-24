@@ -143,7 +143,7 @@ public class Interview06 {
 
     }
 }
-
+//http://www.iocoder.cn/Eureka/rate-limiter/?juejin&2018-02-03  注册中心源码解析
 class RateLimiter {
 
     private final long rateToMsConversion;
