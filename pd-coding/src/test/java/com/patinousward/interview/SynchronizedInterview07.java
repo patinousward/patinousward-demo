@@ -1,10 +1,10 @@
 package com.patinousward.interview;
 
 /**
- * synchonized 和  锁
+ * synchronized 和  锁
  * https://zhuanlan.zhihu.com/p/112285618
  */
-public class SynchonizedInterview07 {
+public class SynchronizedInterview07 {
 
     /**
      * javac xxx.java
@@ -27,11 +27,11 @@ public class SynchonizedInterview07 {
 
 
     public void test01(){
-        synchronized (SynchonizedInterview07.class) {
+        synchronized (SynchronizedInterview07.class) {
         }
        test00();
  /*       {
-  public com.patinousward.interview.SynchonizedInterview07();
+  public com.patinousward.interview.SynchronizedInterview07();
             descriptor: ()V
             flags: ACC_PUBLIC
             Code:
@@ -56,7 +56,7 @@ public class SynchonizedInterview07 {
             flags: ACC_PUBLIC
             Code:
             stack=2, locals=3, args_size=1
-            0: ldc           #2                  // class com/patinousward/interview/SynchonizedInterview07
+            0: ldc           #2                  // class com/patinousward/interview/SynchronizedInterview07
             2: dup
             3: astore_1
             4: monitorenter             //进入锁
@@ -83,7 +83,7 @@ public class SynchonizedInterview07 {
             StackMapTable: number_of_entries = 2
             frame_type = 255 *//* full_frame *//*
             offset_delta = 10
-            locals = [ class com/patinousward/interview/SynchonizedInterview07, class java/lang/Object ]
+            locals = [ class com/patinousward/interview/SynchronizedInterview07, class java/lang/Object ]
             stack = [ class java/lang/Throwable ]
             frame_type = 250 *//* chop *//*
             offset_delta = 4
