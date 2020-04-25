@@ -29,7 +29,7 @@ public class Interview06 {
          * unsafe.getAndAddInt(this, valueOffset, 1) + 1;
          *
          * var1:AtomicInteger对象
-         * var2：valueOffset
+         * var2：valueOffset 内存偏移量（内存地址值）
          * var4：1
          * var5应该是当前计算机中的真实值
          *
