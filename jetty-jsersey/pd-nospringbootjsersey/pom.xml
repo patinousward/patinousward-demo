@@ -88,7 +88,7 @@
         <dependency>
             <groupId>org.mybatis</groupId>
             <artifactId>mybatis</artifactId>
-            <version>3.1.1</version>
+            <version>3.5.6</version>
         </dependency>        <!-- mysql的数据库驱动包 -->
         <dependency>
             <groupId>mysql</groupId>
